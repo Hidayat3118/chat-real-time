@@ -1,59 +1,61 @@
-'use client';
+"use client";
 
+import { Button } from "@/components/ui/button";
+import LayoutAuth from "@/layout/layoutAuth";
 import Link from "next/link";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function RegisterPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#5865F2]">
-      
-      {/* Card */}
-      <div className="w-full max-w-md bg-[#313338] rounded-lg p-8 shadow-xl animate-drop">
-        
+    <LayoutAuth>
+      <div className="w-full relative z-10 max-w-md bg-[#313338] rounded-lg p-8 shadow-xl animate-drop">
         <h1 className="text-white text-2xl font-semibold text-center mb-6">
           Create an account
         </h1>
 
         {/* Email */}
         <div className="mb-4">
-          <label className="block text-xs font-semibold text-gray-300 mb-1">
-            EMAIL <span className="text-red-500">*</span>
-          </label>
-          <input
+          <Label className="text-white  font-bold mb-2">
+            Email <span className="text-red-500">*</span>
+          </Label>
+          <Input
             type="email"
-            className="w-full h-10 rounded-md bg-[#1E1F22] text-white px-3 outline-none focus:ring-2 focus:ring-[#5865F2]"
+            className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         {/* Display Name */}
         <div className="mb-4">
-          <label className="block text-xs font-semibold text-gray-300 mb-1">
-            DISPLAY NAME
-          </label>
-          <input
-            type="text"
-            className="w-full h-10 rounded-md bg-[#1E1F22] text-white px-3 outline-none focus:ring-2 focus:ring-[#5865F2]"
+          <Label className="text-white  font-bold mb-2">
+            Display Name <span className="text-red-500">*</span>
+          </Label>
+          <Input
+            type="email"
+            className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         {/* Username */}
         <div className="mb-4">
-          <label className="block text-xs font-semibold text-gray-300 mb-1">
-            USERNAME <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            className="w-full h-10 rounded-md bg-[#1E1F22] text-white px-3 outline-none focus:ring-2 focus:ring-[#5865F2]"
+          <Label className="text-white  font-bold mb-2">
+            Username <span className="text-red-500">*</span>
+          </Label>
+          <Input
+            type="email"
+            className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         {/* Password */}
         <div className="mb-4">
-          <label className="block text-xs font-semibold text-gray-300 mb-1">
-            PASSWORD <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="password"
-            className="w-full h-10 rounded-md bg-[#1E1F22] text-white px-3 outline-none focus:ring-2 focus:ring-[#5865F2]"
+          <Label className="text-white  font-bold mb-2">
+            Password <span className="text-red-500">*</span>
+          </Label>
+          <Input
+            type="email"
+            className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -78,38 +80,28 @@ export default function RegisterPage() {
 
         {/* Checkbox */}
         <div className="flex items-start gap-2 mb-3">
-          <input type="checkbox" className="mt-1" defaultChecked />
-          <p className="text-xs text-gray-400">
-            (Optional) It's okay to send me emails with Discord updates, tips, and
-            special offers. You can opt out at any time.
-          </p>
-        </div>
-
-        <div className="flex items-start gap-2 mb-6">
-          <input type="checkbox" className="mt-1" />
-          <p className="text-xs text-gray-400">
-            I have read and agree to Discord's{" "}
-            <span className="text-[#00A8FC] cursor-pointer">
-              Terms of Service
-            </span>{" "}
-            and{" "}
-            <span className="text-[#00A8FC] cursor-pointer">
-              Privacy Policy
-            </span>.
-          </p>
+          <Checkbox className="cursor-pointer" id="update" />
+          <Label htmlFor="update" className="text-neutral-400">
+            (Optional) It's okay to send me emails with Discord updates, tips,
+            and special offers. You can opt out at any time.
+          </Label>
         </div>
 
         {/* Button */}
-        <button className="w-full h-11 rounded-md bg-[#5865F2] text-white font-semibold hover:bg-[#4752C4] transition">
-          Create Account
-        </button>
+        <Button className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 w-full ">
+          Create Accont
+        </Button>
 
         {/* Footer */}
         <p className="text-sm text-[#00A8FC] mt-4">
-          <Link href="/login">Already have an account?</Link>
+          <Link
+            className="text-indigo-400 hover:text-indigo-500 "
+            href="/login"
+          >
+            Already have an account?
+          </Link>
         </p>
-
       </div>
-    </div>
+    </LayoutAuth>
   );
 }
