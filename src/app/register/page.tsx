@@ -6,11 +6,16 @@ import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  NativeSelect,
+  NativeSelectOptGroup,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 
 export default function RegisterPage() {
   return (
     <LayoutAuth>
-      <div className="w-full relative z-10 max-w-md bg-[#313338] rounded-lg p-8 shadow-xl animate-drop">
+      <div className="w-full relative z-10 max-w-md bg-neutral-700 rounded-lg p-8 shadow-xl animate-drop">
         <h1 className="text-white text-2xl font-semibold text-center mb-6">
           Create an account
         </h1>
@@ -60,31 +65,92 @@ export default function RegisterPage() {
         </div>
 
         {/* Date of Birth */}
-        <div className="mb-4">
-          <label className="block text-xs font-semibold text-gray-300 mb-1">
-            DATE OF BIRTH <span className="text-red-500">*</span>
-          </label>
-
+        <label className="block text-xs font-semibold text-gray-300 mb-3 ">
+          Date Of Birth <span className="text-red-500">*</span>
+        </label>
+        <div className="mb-6 grid grid-cols-3 gap-4 text-neutral-300 ">
+          {/* Month */}
           <div className="flex gap-2">
-            <select className="flex-1 h-10 rounded-md bg-[#1E1F22] text-gray-400 px-3">
-              <option>Month</option>
-            </select>
-            <select className="flex-1 h-10 rounded-md bg-[#1E1F22] text-gray-400 px-3">
-              <option>Day</option>
-            </select>
-            <select className="flex-1 h-10 rounded-md bg-[#1E1F22] text-gray-400 px-3">
-              <option>Year</option>
-            </select>
+            <NativeSelect className="border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <NativeSelectOption value="">Month</NativeSelectOption>
+              <NativeSelectOption value="january">January</NativeSelectOption>
+              <NativeSelectOption value="february">February</NativeSelectOption>
+              <NativeSelectOption value="march">March</NativeSelectOption>
+              <NativeSelectOption value="april">April</NativeSelectOption>
+              <NativeSelectOption value="may">May</NativeSelectOption>
+              <NativeSelectOption value="june">June</NativeSelectOption>
+              <NativeSelectOption value="july">July</NativeSelectOption>
+              <NativeSelectOption value="august">August</NativeSelectOption>
+              <NativeSelectOption value="september">
+                September
+              </NativeSelectOption>
+              <NativeSelectOption value="october">October</NativeSelectOption>
+              <NativeSelectOption value="november">November</NativeSelectOption>
+              <NativeSelectOption value="december">December</NativeSelectOption>
+            </NativeSelect>
+          </div>
+          {/* day */}
+          <div className="flex gap-2">
+            <NativeSelect className="border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <NativeSelectOption value="">Date</NativeSelectOption>
+              <NativeSelectOption value="1">1</NativeSelectOption>
+              <NativeSelectOption value="2">2</NativeSelectOption>
+              <NativeSelectOption value="3">3</NativeSelectOption>
+              <NativeSelectOption value="4">4</NativeSelectOption>
+              <NativeSelectOption value="5">5</NativeSelectOption>
+              <NativeSelectOption value="6">6</NativeSelectOption>
+              <NativeSelectOption value="7">7</NativeSelectOption>
+              <NativeSelectOption value="8">8</NativeSelectOption>
+              <NativeSelectOption value="9">9</NativeSelectOption>
+              <NativeSelectOption value="10">10</NativeSelectOption>
+              <NativeSelectOption value="11">11</NativeSelectOption>
+              <NativeSelectOption value="12">12</NativeSelectOption>
+              <NativeSelectOption value="13">13</NativeSelectOption>
+              <NativeSelectOption value="14">14</NativeSelectOption>
+              <NativeSelectOption value="15">15</NativeSelectOption>
+              <NativeSelectOption value="16">16</NativeSelectOption>
+              <NativeSelectOption value="17">17</NativeSelectOption>
+              <NativeSelectOption value="18">18</NativeSelectOption>
+              <NativeSelectOption value="19">19</NativeSelectOption>
+              <NativeSelectOption value="20">20</NativeSelectOption>
+              <NativeSelectOption value="21">21</NativeSelectOption>
+              <NativeSelectOption value="22">22</NativeSelectOption>
+              <NativeSelectOption value="23">23</NativeSelectOption>
+              <NativeSelectOption value="24">24</NativeSelectOption>
+              <NativeSelectOption value="25">25</NativeSelectOption>
+              <NativeSelectOption value="26">26</NativeSelectOption>
+              <NativeSelectOption value="27">27</NativeSelectOption>
+              <NativeSelectOption value="28">28</NativeSelectOption>
+              <NativeSelectOption value="29">29</NativeSelectOption>
+              <NativeSelectOption value="30">30</NativeSelectOption>
+              <NativeSelectOption value="31">31</NativeSelectOption>
+            </NativeSelect>
+          </div>
+
+          {/* year */}
+          <div className="flex gap-2">
+            <NativeSelect className="border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <NativeSelectOption value="">Year</NativeSelectOption>
+              <NativeSelectOption value="2023">2023</NativeSelectOption>
+              <NativeSelectOption value="2024">2024</NativeSelectOption>
+              <NativeSelectOption value="2025">2025</NativeSelectOption>
+              <NativeSelectOption value="2026">2026</NativeSelectOption>
+              <NativeSelectOption value="2027">2027</NativeSelectOption>
+            </NativeSelect>
           </div>
         </div>
 
         {/* Checkbox */}
         <div className="flex items-start gap-2 mb-3">
           <Checkbox className="cursor-pointer" id="update" />
-          <Label htmlFor="update" className="text-neutral-400">
+          <Label htmlFor="update" className="text-neutral-400 text-xs">
             (Optional) It's okay to send me emails with Discord updates, tips,
             and special offers. You can opt out at any time.
           </Label>
+        </div>
+        <div className="text-sm text-gray-300 mb-2 my-4">
+         <p> By clicking "Create Account," you agree to Discord's Terms of Service
+          and have read the Privacy Policy</p>
         </div>
 
         {/* Button */}

@@ -2,7 +2,7 @@ import React from "react";
 
 const LayoutAuth = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#5865F2]">
+    <div className="min-h-screen flex items-center justify-center bg-[url(/discod-beground.webp)]   bg-cover bg-center bg-no-repeat">
       {/* Background particles/stars effect */}
       <div className="absolute inset-0 overflow-hidden"></div>
 
