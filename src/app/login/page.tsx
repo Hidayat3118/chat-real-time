@@ -29,7 +29,7 @@ export default function Login() {
               {/* email */}
               <div>
                 <label className="block text-neutral-200 text-md font-semibold mb-2">
-                  Email or Phone Number <span className="text-red-500">*</span>
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <Input className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
