@@ -1,5 +1,6 @@
 "use client";
-
+// notif
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import LayoutAuth from "@/layout/layoutAuth";
 import Link from "next/link";
@@ -8,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   NativeSelect,
-  NativeSelectOptGroup,
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { useState } from "react";
@@ -20,13 +20,18 @@ import { auth } from "@/lib/firebase";
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [userName, setUserName] = useState("");
+
   // function register
   const handleRegister = async () => {
     try {
       const userCredetial = await createUserWithEmailAndPassword (auth, email, password);
-      alert("register berhasil"); 
+      toast.success("Berhasil Register");
+      console.log('berhasil login'); 
     } catch (err) {
-      alert("gagal register");
+      console.log(err, 'gagal register');
+      toast.error("Gagal register");
     }
   }
   return (
@@ -54,7 +59,8 @@ export default function RegisterPage() {
             Display Name <span className="text-red-500">*</span>
           </Label>
           <Input
-            type="email"
+            type="text"
+            onChange={(e) => setDisplayName(e.target.value)}
             className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -65,7 +71,8 @@ export default function RegisterPage() {
             Username <span className="text-red-500">*</span>
           </Label>
           <Input
-            type="email"
+            type="text"
+            onChange={(e) => setDisplayName(e.target.value)}
             className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -76,7 +83,8 @@ export default function RegisterPage() {
             Password <span className="text-red-500">*</span>
           </Label>
           <Input
-            type="email"
+            type="password"
+            onChange={(e) => setPassword(e.target.value) }
             className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -171,7 +179,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Button */}
-        <Button className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 w-full ">
+        <Button onClick={handleRegister} className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 w-full ">
           Create Accont
         </Button>
 
