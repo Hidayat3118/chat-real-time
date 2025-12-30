@@ -13,27 +13,48 @@ import {
 } from "@/components/ui/native-select";
 import { useState } from "react";
 // import firebase
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/lib/firebase";
-
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "@/lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [userName, setUserName] = useState("");
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+  const [year, setYear] = useState("");
 
   // function register
   const handleRegister = async () => {
     try {
-      const userCredetial = await createUserWithEmailAndPassword (auth, email, password);
+      const userCredetial = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredetial.user;
+      await updateProfile(user, { displayName: displayName });
+      // simpan data ke firebase
+      await setDoc(doc(db, "users", user.uid), {
+        displayName: displayName,
+        userName: userName,
+        month: month,
+        email: email,
+        day: day,
+        year: year,
+        createdAt: new Date(),
+      });
       toast.success("Berhasil Register");
-      console.log('berhasil login'); 
+      console.log("berhasil login");
     } catch (err) {
-      console.log(err, 'gagal register');
+      console.log(err, "gagal register");
       toast.error("Gagal register");
     }
-  }
+  };
+
+
   return (
     <LayoutAuth>
       <div className="w-full relative z-10 max-w-md bg-neutral-700 rounded-lg p-8 shadow-xl animate-drop">
@@ -48,7 +69,7 @@ export default function RegisterPage() {
           </Label>
           <Input
             type="email"
-            onChange={((e) => setEmail(e.target.value) )}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -72,7 +93,7 @@ export default function RegisterPage() {
           </Label>
           <Input
             type="text"
-            onChange={(e) => setDisplayName(e.target.value)}
+            onChange={(e) => setUserName(e.target.value)}
             className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -84,7 +105,7 @@ export default function RegisterPage() {
           </Label>
           <Input
             type="password"
-            onChange={(e) => setPassword(e.target.value) }
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -96,7 +117,7 @@ export default function RegisterPage() {
         <div className="mb-6 grid grid-cols-3 gap-4 text-neutral-300 ">
           {/* Month */}
           <div className="flex gap-2">
-            <NativeSelect className="border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-32 h-11">
+            <NativeSelect onChange={(e) => setMonth(e.target.value)} className="border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-32 h-11">
               <NativeSelectOption value="">Month</NativeSelectOption>
               <NativeSelectOption value="january">January</NativeSelectOption>
               <NativeSelectOption value="february">February</NativeSelectOption>
@@ -116,7 +137,7 @@ export default function RegisterPage() {
           </div>
           {/* day */}
           <div className="flex gap-2">
-            <NativeSelect className="border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-32 h-11">
+            <NativeSelect onChange={(e) => setDay(e.target.value)} className="border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-32 h-11">
               <NativeSelectOption value="">Date</NativeSelectOption>
               <NativeSelectOption value="1">1</NativeSelectOption>
               <NativeSelectOption value="2">2</NativeSelectOption>
@@ -154,7 +175,7 @@ export default function RegisterPage() {
 
           {/* year */}
           <div className="flex gap-2">
-            <NativeSelect className="border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-32 h-11">
+            <NativeSelect onChange={(e) => setYear(e.target.value)} className="border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-32 h-11">
               <NativeSelectOption value="">Year</NativeSelectOption>
               <NativeSelectOption value="2023">2023</NativeSelectOption>
               <NativeSelectOption value="2024">2024</NativeSelectOption>
@@ -174,12 +195,18 @@ export default function RegisterPage() {
           </Label>
         </div>
         <div className="text-sm text-gray-300 mb-2 my-4">
-         <p> By clicking "Create Account," you agree to Discord's Terms of Service
-          and have read the Privacy Policy</p>
+          <p>
+            {" "}
+            By clicking "Create Account," you agree to Discord's Terms of
+            Service and have read the Privacy Policy
+          </p>
         </div>
 
         {/* Button */}
-        <Button onClick={handleRegister} className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 w-full ">
+        <Button
+          onClick={handleRegister}
+          className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 w-full "
+        >
           Create Accont
         </Button>
 
