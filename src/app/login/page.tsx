@@ -4,15 +4,33 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import LayoutAuth from "@/layout/layoutAuth";
-import Link from 'next/link';
-
+import Link from "next/link";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { error } from "console";
+import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // handle login
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Berhasil Login");
+    } catch (err) {
+      console.log(error, "gagal login");
+      toast.error("gagal Login");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-   <LayoutAuth>
-     <div className="relative z-10 bg-neutral-700 rounded-lg shadow-2xl p-8 w-full max-w-3xl mx-4 animate-drop">
+    <LayoutAuth>
+      <div className="relative z-10 bg-neutral-700 rounded-lg shadow-2xl p-8 w-full max-w-3xl mx-4 animate-drop">
         <div className="grid grid-cols-10 justify-between items-start ">
           {/* Left side - Login Form */}
           <div className="flex-1 w-full md:w-auto col-span-6 pr-6">
@@ -31,22 +49,21 @@ export default function Login() {
                 <label className="block text-neutral-200 text-md font-semibold mb-2">
                   Email <span className="text-red-500">*</span>
                 </label>
-                <Input className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <Input
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
               {/* password */}
               <div className="">
                 <label className="block text-neutral-200 text-md font-semibold mb-2">
                   Password <span className="text-red-500">*</span>
                 </label>
-                {/* <input
-                  type="password"
-                  value={password}
+                <Input
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-neutral-800 text-white rounded-md px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                /> */}
-                <Input className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                  className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
-              {/* text and button login */}
               <div className="grid">
                 <a
                   href="#"
@@ -55,12 +72,17 @@ export default function Login() {
                   Forgot your password?
                 </a>
                 {/* button login */}
-                <Button className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 ">
-                  Log In
+                <Button type="submit" disabled={loading} onClick={handleLogin} className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 ">
+                  {loading ? <Spinner/> : "Log In"}
                 </Button>
                 <p className="text-gray-400 text-sm">
                   Need an account?{" "}
-                <Link className="text-indigo-400 hover:text-indigo-500" href="/register">Register</Link>
+                  <Link
+                    className="text-indigo-400 hover:text-indigo-500"
+                    href="/register"
+                  >
+                    Register
+                  </Link>
                 </p>
               </div>
             </div>
@@ -94,6 +116,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-   </LayoutAuth>
+    </LayoutAuth>
   );
 }
