@@ -7,25 +7,27 @@ import LayoutAuth from "@/layout/layoutAuth";
 import Link from "next/link";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
-import { error } from "console";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(true);
-
+  const [loading, setLoading] = useState(false);
+  const route = useRouter();
   // handle login
   const handleLogin = async () => {
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Berhasil Login");
+      route.push("/testing");
     } catch (err) {
-      console.log(error, "gagal login");
+      console.log(err, "gagal login");
       toast.error("gagal Login");
     } finally {
-      setLoading(false);
+      setLoading(true);
     }
   };
   return (
@@ -72,8 +74,13 @@ export default function Login() {
                   Forgot your password?
                 </a>
                 {/* button login */}
-                <Button type="submit" disabled={loading} onClick={handleLogin} className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 ">
-                  {loading ? <Spinner/> : "Log In"}
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  onClick={handleLogin}
+                  className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 "
+                >
+                  {loading ? <Spinner /> : "Log In"}
                 </Button>
                 <p className="text-gray-400 text-sm">
                   Need an account?{" "}
