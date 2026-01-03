@@ -12,18 +12,18 @@ import { Spinner } from "@/components/ui/spinner";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const route = useRouter();
   // handle login
-  const handleLogin = async () => {
+  const handleLogin = async (): Promise<void> => {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Berhasil Login");
       route.push("/testing");
-    } catch (err) {
+    } catch (err: unknown) {
       console.log(err, "gagal login");
       toast.error("gagal Login");
     } finally {
