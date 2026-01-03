@@ -46,7 +46,7 @@ export default function RegisterPage() {
         year: year,
         createdAt: new Date(),
       });
-      toast.success("Berhasil Register");
+      toast.success("Berhasil Register");x``
       console.log("berhasil login");
     } catch (err) {
       console.log(err, "gagal register");
