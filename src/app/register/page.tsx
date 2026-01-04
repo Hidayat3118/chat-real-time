@@ -18,6 +18,7 @@ import { auth, db } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 // typescript
 import { UserDoc } from "@/types/user";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState<string>("");
@@ -27,6 +28,7 @@ export default function RegisterPage() {
   const [month, setMonth] = useState<string>("");
   const [day, setDay] = useState<string>("");
   const [year, setYear] = useState<string>("");
+  const route = useRouter();
 
   // function register
   const handleRegister = async (): Promise<void> => {
@@ -51,7 +53,8 @@ export default function RegisterPage() {
       };
       await setDoc(doc(db, "users", user.uid), userData);
       toast.success("Berhasil Register");
-      console.log("berhasil login");
+      console.log("berhasil Register");
+      route.push("/home");
     } catch (err: unknown) {
       console.log(err, "gagal register");
       toast.error("Gagal register");

@@ -16,6 +16,28 @@
   animation: drop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+@theme {
+  --color-primary-50:  #f4f5f6;
+  --color-primary-100: #e4e6e8;
+  --color-primary-200: #cfd3d8;
+
+  /* hover terang / border halus */
+  --color-primary-300: #2f3136;
+  --color-primary-400: #2a2d31;
+
+  /* konten utama */
+  --color-primary-500: #232428;
+  --color-primary-600: #1f2125;
+
+  /* panel kiri / sidebar */
+  --color-primary-700: #202124;
+  --color-primary-800: #1A1A1E;
+
+  /* sidebar kanan / background gelap */
+  --color-primary-900: #0E0F11;
+}
+
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

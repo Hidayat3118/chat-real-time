@@ -5,7 +5,9 @@ import MainContent from "@/components/main-content"
 export default function Home() {
   return (
     <div className="h-screen flex overflow-hidden">
-     testing aja
+      <ServerSidebar />
+      <DMSidebar />
+      <MainContent />
     </div>
   )
 }

@@ -22,7 +22,7 @@ export default function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Berhasil Login");
-      route.push("/testing");
+      route.push("/home");
     } catch (err: unknown) {
       console.log(err, "gagal login");
       toast.error("gagal Login");
