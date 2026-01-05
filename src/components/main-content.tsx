@@ -9,7 +9,7 @@ export default function MainContent() {
       {/* Header */}
       <div className="col-span-4 border-b border-white/10 px-4 flex items-center justify-between">
         {/* left */}
-        <div className="flex items-center gap-3 bg-[#1e1f22] px-4 py-2 rounded-md w-fit">
+        <div className="flex items-center gap-3 bg-[#1e1f22] px-2 py-2 rounded-md w-fit">
           <Image height={20} width={20} alt="icon" src="/icon.png" />
           {/* Friends */}
           <span className="text-white font-semibold text-sm">Friends</span>
@@ -38,7 +38,7 @@ export default function MainContent() {
 
       {/* Main content */}
       <div className="col-span-3 p-4 text-white">
-        <div className="flex items-center gap-2 bg-primary-800 rounded-md px-3 py-2 mb-4 border border-neutral-600">
+        <div className="flex items-center gap-2 bg-primary-800 rounded-md px-3 py-2 mb-4 border border-neutral-700">
           <Search size={16} className="text-neutral-200" />
           <input
             type="text"

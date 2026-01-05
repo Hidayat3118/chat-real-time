@@ -1,5 +1,10 @@
-import { Input } from "@/components/ui/input"
-
+import { Input } from "@/components/ui/input";
+import { AiFillShop } from "react-icons/ai";
+import SidebarItem from "@/components/ui/sidebar-item";
+import DMItem from "./ui/dm-item";
+import { IoLogoIonitron } from "react-icons/io";
+import { FaUserFriends } from "react-icons/fa";
+import { FaLeaf } from "react-icons/fa";
 export default function DMSidebar() {
   return (
     <aside className="w-96 bg-primary-900 text-zinc-200 flex flex-col">
@@ -12,16 +17,19 @@ export default function DMSidebar() {
       </div>
 
       {/* Menu */}
+
       <div className="px-2 space-y-1">
-        <SidebarItem active label="Friends" />
-        <SidebarItem label="Nitro" />
-        <SidebarItem label="Shop" />
+        <SidebarItem active label="Friends" icon={<FaUserFriends />} />
+        <SidebarItem
+          label="Nitro"
+          icon={<IoLogoIonitron className="text-2xl" />}
+        />
+        <SidebarItem label="Shop" icon={<AiFillShop className="text-xl" />} />
+        <SidebarItem active label="Guests" icon={<FaLeaf />} />
       </div>
 
       {/* DM List */}
-      <div className="mt-4 px-2 text-sm text-zinc-400">
-        Direct Message
-      </div>
+      <div className="mt-4 px-2 text-sm text-zinc-400">Direct Message</div>
 
       <div className="px-2 mt-2 space-y-1">
         <DMItem name="Nakja" />
@@ -30,28 +38,5 @@ export default function DMSidebar() {
         <DMItem name="Giegie" />
       </div>
     </aside>
-  )
-}
-
-function SidebarItem({ label, active }: { label: string; active?: boolean }) {
-  return (
-    <div
-      className={`px-3 py-2 rounded-md cursor-pointer ${
-        active
-          ? "bg-zinc-800 text-white"
-          : "hover:bg-zinc-700/50"
-      }`}
-    >
-      {label}
-    </div>
-  )
-}
-
-function DMItem({ name }: { name: string }) {
-  return (
-    <div className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-zinc-700/50 cursor-pointer">
-      <div className="w-8 h-8 rounded-full bg-zinc-600" />
-      <span className="text-sm">{name}</span>
-    </div>
-  )
+  );
 }
