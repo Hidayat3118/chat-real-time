@@ -1,10 +1,22 @@
 import Image from "next/image";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const IconApp = () => {
   return (
-    <div className="w-10 h-10 rounded-xl flex overflow-hidden bg-primary-600 items-center justify-center text-white font-bold">
-      <Image width={50} height={50} alt="icon discord" src="/cibi.jpg" className="object-cover"/>
-    </div>
+    <Tooltip>
+      <TooltipTrigger>
+        <div className="w-10 h-10 cursor-pointer rounded-xl flex overflow-hidden bg-primary-600 items-center justify-center text-white font-bold">
+          <Image
+            width={50}
+            height={50}
+            alt="icon discord"
+            src="/cibi.jpg"
+            className="object-cover"
+          />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent className="bg-primary-600" side="right">Testing aja sih</TooltipContent>
+    </Tooltip>
   );
 };
 

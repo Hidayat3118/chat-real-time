@@ -1,35 +1,19 @@
-"use client";
+import { Button } from "@/components/ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
-import { auth } from "@/lib/firebase";
-import { toast } from "sonner";
-import { onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
-
-export default function Testing() {
-  const [email, setEmail] = useState<string | null>("");
-  const tekan = () => {
-    toast.success("notifikasi berhasil");
-  };
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setEmail(user.email);
-      }
-    });
-
-    return () => unsub();
-  }, []);
-
+export default function TooltipDemo() {
   return (
-    <div className="flex justify-center mt-32">
-      <button
-        onClick={tekan}
-        className="bg-blue-500 text-white font-semibold py-2 px-3 w-24 mx-auto hover:bg-blue-600 cursor-pointer"
-      >
-        Klik
-      </button>
-      <p> {email}</p>
-    </div>
-  );
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline">Hover</Button>
+      </TooltipTrigger>
+      <TooltipContent >
+        <p>Add to library</p>
+      </TooltipContent>
+    </Tooltip>
+  )
 }
