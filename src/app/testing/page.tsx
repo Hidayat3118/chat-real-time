@@ -7,13 +7,8 @@ import {
 
 export default function TooltipDemo() {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button variant="outline">Hover</Button>
-      </TooltipTrigger>
-      <TooltipContent >
-        <p>Add to library</p>
-      </TooltipContent>
-    </Tooltip>
+    <div className="group bg-red-400 hover:bg-red-500">
+      <button className="bg-blue text-white rounded-2xl group-hover:bg-blue-700">hover</button>
+    </div>
   )
 }

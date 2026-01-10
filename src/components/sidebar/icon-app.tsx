@@ -5,7 +5,7 @@ const IconApp = () => {
   return (
     <Tooltip>
       <TooltipTrigger>
-        <div className="w-10 h-10 cursor-pointer rounded-xl flex overflow-hidden bg-primary-600 items-center justify-center text-white font-bold">
+        <div className="w-11 h-11 cursor-pointer rounded-xl flex overflow-hidden bg-primary-600 items-center justify-center text-white font-bold">
           <Image
             width={50}
             height={50}

@@ -53,7 +53,7 @@ export default function MainContent() {
         </p>
 
         {/* User item */}
-        <div className="flex items-center gap-3 p-2 rounded-md hover:bg-primary-900 cursor-pointer border-t border-white/10 py-4">
+        <div className="flex group items-center gap-3 p-2 rounded-md hover:bg-primary-700 cursor-pointer border-t border-white/10 py-4">
           <img
             src="https://i.pravatar.cc/40"
             alt="avatar"
@@ -63,18 +63,18 @@ export default function MainContent() {
             <p className="text-sm font-medium">RevanRach</p>
             <p className="text-xs text-zinc-400 truncate">Ralie...</p>
           </div>
-          <div className="flex gap-7 text-zinc-400 items-center">
-            <span>
+          <div className="flex gap-2 text-zinc-400 items-center">
+            <button className="group-hover:bg-primary-900 h-10 w-10 cursor-pointer rounded-full flex justify-center items-center">
               <TbMessageCircleFilled className="text-2xl"/>
-            </span>
-            <span className="text-xl font-semibold">⋮</span>
+            </button>
+            <button className="text-xl font-semibold group-hover:bg-primary-900 h-10 w-10 cursor-pointer rounded-full flex justify-center items-center">⋮</button>
           </div>
         </div>
       </div>
 
       {/* Right sidebar */}
       <div className="col-start-4 row-start-2 row-span-10 h-full border-l border-white/5">
-        <div className="flex-1 h-screen bg-primary-700 text-white p-6">
+        <div className="flex-1 h-screen bg-primary-800 text-white p-6">
           {/* Title */}
           <h2 className="text-lg font-semibold mb-6">Active Now</h2>
 
