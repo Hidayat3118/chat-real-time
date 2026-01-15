@@ -2,8 +2,14 @@ import { TbMessageCirclePlus } from "react-icons/tb";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import { TbMessageCircleFilled } from "react-icons/tb";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@radix-ui/react-popover";
+import RightSidebar from "../dashboard/right-sidebar";
 
-export default function MainContent() {
+export default function Friend() {
   return (
     <div className="grid grid-cols-4 grid-rows-[56px_1fr] bg-primary-800 w-full h-full ">
       {/* Header */}
@@ -64,30 +70,52 @@ export default function MainContent() {
             <p className="text-xs text-zinc-400 truncate">Ralie...</p>
           </div>
           <div className="flex gap-2 text-zinc-400 items-center">
-            <button className="group-hover:bg-primary-900 h-10 w-10 cursor-pointer rounded-full flex justify-center items-center">
-              <TbMessageCircleFilled className="text-2xl"/>
+            {/* icon pesan */}
+            <button
+              className="group-hover:bg-primary-900 h-10 w-10 cursor-pointer 
+            rounded-full flex justify-center items-center"
+            >
+              <TbMessageCircleFilled className="text-2xl" />
             </button>
-            <button className="text-xl font-semibold group-hover:bg-primary-900 h-10 w-10 cursor-pointer rounded-full flex justify-center items-center">⋮</button>
+            {/* icon titik 3  */}
+            <Popover>
+              <PopoverTrigger asChild>
+                <button
+                  className="text-xl font-semibold group-hover:bg-primary-900 h-10 w-10 cursor-pointer
+             rounded-full flex justify-center items-center"
+                >
+                  ⋮
+                </button>
+              </PopoverTrigger>
+
+              <PopoverContent
+                side="bottom"
+                align="start"
+                sideOffset={8}
+                className="w-52 rounded-lg bg-primary-700 p-1 shadow-lg border border-[#1f2023] "
+              >
+                <div className="flex gap-1 flex-col text-sm font-semibold text-gray-200">
+                  <button className="px-3 cursor-pointer py-2 text-left rounded hover:bg-[#2b2d31]">
+                    Start Video Call
+                  </button>
+
+                  <button className="px-3 cursor-pointer py-2 text-left rounded hover:bg-[#2b2d31]">
+                    Start Voice Call
+                  </button>
+
+                  <button className="px-3 cursor-pointer py-2 text-left rounded text-red-400 hover:bg-red-500/10">
+                    Remove Friend
+                  </button>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
       </div>
+
 
       {/* Right sidebar */}
-      <div className="col-start-4 row-start-2 row-span-10 h-full border-l border-white/5">
-        <div className="flex-1 h-screen bg-primary-800 text-white p-6">
-          {/* Title */}
-          <h2 className="text-lg font-semibold mb-6">Active Now</h2>
-
-          {/* Empty state */}
-          <div className="flex flex-col justify-center text-center">
-            <p className="text-base font-medium mb-2">It's quiet for now...</p>
-            <p className="text-sm text-zinc-400 max-w-xs">
-              When a friend starts an activity—like playing a game or hanging
-              out on voice—we'll show it here!
-            </p>
-          </div>
-        </div>
-      </div>
+      <RightSidebar />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { IoLogoIonitron } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
 import { FaLeaf } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
+import Link from "next/link";
 import {
   Tooltip,
   TooltipContent,
@@ -17,25 +18,23 @@ import {
   DialogTrigger,
   DialogContent,
   DialogTitle,
-  DialogDescription,
-  DialogHeader,
-  DialogClose
+  DialogClose,
 } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 export default function DMSidebar() {
   return (
     <aside className="w-96 bg-primary-900 text-zinc-200 flex flex-col">
       {/* Search */}
-      <div className="p-3">
-        <Input
-          placeholder="Find or start a conversation"
-          className="bg-primary-950 border-none text-sm"
-        />
-      </div>
+      <button className="px-3 py-2 mx-2 my-4 bg-primary-800 rounded-lg text-sm font-semibold cursor-pointer hover:bg-primary-500">
+        Find or start a conversation
+      </button>
 
       {/* Menu */}
 
       <div className="px-2 space-y-1">
-        <SidebarItem active label="Friends" icon={<FaUserFriends />} />
+        <Link href="home/friend">
+          <SidebarItem active label="Friends" icon={<FaUserFriends />} />
+        </Link>
         <SidebarItem
           label="Nitro"
           icon={<IoLogoIonitron className="text-2xl" />}
@@ -86,7 +85,7 @@ export default function DMSidebar() {
                 ].map((user) => (
                   <div
                     key={user.username}
-                    className="flex items-center justify-between px-4 py-3 rounded-md hover:bg-white/5 cursor-pointer"
+                    className="flex items-center justify-between px-4 py-3 rounded-md hover:bg-white/5 cursor-pointer pr-6"
                   >
                     <div className="flex items-center gap-3">
                       {/* Avatar */}
@@ -100,10 +99,7 @@ export default function DMSidebar() {
                     </div>
 
                     {/* Checkbox */}
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 rounded border-white/30 bg-transparent"
-                    />
+                    <Checkbox className="border border-white/40 h-5 w-5 cursor-pointer" />
                   </div>
                 ))}
               </div>

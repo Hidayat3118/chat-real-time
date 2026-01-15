@@ -1,6 +1,6 @@
-import ServerSidebar from "@/components/server-sidebar"
-import DMSidebar from "@/components/dm-sidebar"
-import MainContent from "@/components/main-content"
+import ServerSidebar from "@/app/home/dashboard/server-sidebar"
+import DMSidebar from "@/app/home/dashboard/dm-sidebar"
+import MainContent from "@/app/home/dashboard/main-content"
 
 export default function Home() {
   return (
