@@ -54,7 +54,7 @@ export default function RegisterPage() {
       await setDoc(doc(db, "users", user.uid), userData);
       toast.success("Berhasil Register");
       console.log("berhasil Register");
-      route.push("/home");
+      route.push("/home/friend");
     } catch (err: unknown) {
       console.log(err, "gagal register");
       toast.error("Gagal register");

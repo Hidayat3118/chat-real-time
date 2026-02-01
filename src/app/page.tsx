@@ -5,7 +5,7 @@ import MainContent from "@/app/home/dashboard/main-content"
 export default function Home() {
   return (
     <div className="h-screen flex overflow-hidden">
-     testing aja
+     Halaman landing page
     </div>
   )
 }

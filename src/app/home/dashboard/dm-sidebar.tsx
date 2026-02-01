@@ -2,9 +2,9 @@ import { Input } from "@/components/ui/input";
 import { AiFillShop } from "react-icons/ai";
 import SidebarItem from "@/components/ui/sidebar-item";
 import DMItem from "@/components/sidebar/dm-item";
-import { IoLogoIonitron } from "react-icons/io";
+import { GiLaurels } from "react-icons/gi";
+import { SiBlender } from "react-icons/si";
 import { FaUserFriends } from "react-icons/fa";
-import { FaLeaf } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import Link from "next/link";
 import {
@@ -29,18 +29,27 @@ export default function DMSidebar() {
         Find or start a conversation
       </button>
 
-      {/* Menu */}
+      {/* Menu*/}
 
       <div className="px-2 space-y-1">
-        <Link href="home/friend">
+        {/* friend */}
+        <Link href="/home/friend">
           <SidebarItem active label="Friends" icon={<FaUserFriends />} />
         </Link>
-        <SidebarItem
-          label="Nitro"
-          icon={<IoLogoIonitron className="text-2xl" />}
-        />
-        <SidebarItem label="Shop" icon={<AiFillShop className="text-xl" />} />
-        <SidebarItem label="Guests" icon={<FaLeaf />} />
+        {/* nitro */}
+        <Link href="/home/nitro">
+          <SidebarItem
+            label="Nitro"
+            icon={<SiBlender className="text-2xl" />}
+          />
+        </Link>
+        {/* shop */}
+        <Link href="/home/shop">
+          <SidebarItem label="Shop" icon={<AiFillShop className="text-xl" />} />
+        </Link>
+        <Link href="/home/guests">
+          <SidebarItem label="Guests" icon={<GiLaurels />} />
+        </Link>
       </div>
 
       {/* DM List */}
