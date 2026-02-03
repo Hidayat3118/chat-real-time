@@ -1,7 +1,9 @@
+'use client';
 import ServerSidebar from "./dashboard/server-sidebar";
 import DMSidebar from "./dashboard/dm-sidebar";
 import MainContent from "./dashboard/main-content";
 import { PropsWithChildren } from "react";
+import Profil from "@/components/sidebar/profil";
 
 
 export default function Layout({children} : PropsWithChildren) {
@@ -9,6 +11,7 @@ export default function Layout({children} : PropsWithChildren) {
     <div className="h-screen flex overflow-hidden w-full bg-primary-900">
       <ServerSidebar />
       <DMSidebar />
+      <Profil/>
       
       <MainContent>{children}</MainContent>
     </div>
