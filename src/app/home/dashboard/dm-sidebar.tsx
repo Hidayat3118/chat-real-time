@@ -23,7 +23,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 export default function DMSidebar() {
   return (
-    <aside className="w-96 bg-primary-900 text-zinc-200 flex flex-col">
+    <aside className="w-[400px] bg-primary-900 text-zinc-200 flex flex-col">
       {/* Search */}
       <button className="px-3 py-2 mx-2 my-4 bg-primary-800 rounded-lg text-sm font-semibold cursor-pointer hover:bg-primary-500">
         Find or start a conversation
