@@ -1,4 +1,4 @@
-import React from "react";
+'use client';
 import Image from "next/image";
 import { FaMicrophone } from "react-icons/fa";
 import { IoIosSettings } from "react-icons/io";
@@ -11,9 +11,16 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { UserContext } from "@/providers/userProvider";
+import { useContext } from "react";
 
 const Profil = () => {
   // state arrow rotasi
+
+  // userProvider
+  const { user, setUser } = useContext(UserContext);
+ 
+  console.log("user :", user);
 
   return (
     <div className="text-white/80 flex gap-2 items-center max-w-[370px] bg-primary-500 py-2 px-4 rounded-md fixed bottom-4 left-3 right-4 justify-between">
@@ -33,7 +40,8 @@ const Profil = () => {
 
         {/* user */}
         <div>
-          <h2 className="text-sm font-bold">Pacar Changli</h2>
+          {/* display name */}
+          <h2 className="text-sm font-bold">{user?.displayName}</h2>
           <p className="text-xs">Online</p>
         </div>
       </div>
