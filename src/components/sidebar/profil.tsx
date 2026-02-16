@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Image from "next/image";
 import { FaMicrophone } from "react-icons/fa";
 import { IoIosSettings } from "react-icons/io";
@@ -10,17 +10,25 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 import { UserContext } from "@/providers/userProvider";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const Profil = () => {
-  // state arrow rotasi
+  const { user, setUser } = useContext(UserContext);
+  // const router = useRouter();
+  // useEffect(() => {
+  //   if (user === null) {
+  //     router.push("/login");
+  //   }
+  // }, [user]);
+
+  // if (!user) return null;
 
   // userProvider
-  const { user, setUser } = useContext(UserContext);
- 
-  console.log("user :", user);
+
+  console.log("user tes:", user);
 
   return (
     <div className="text-white/80 flex gap-2 items-center max-w-[370px] bg-primary-500 py-2 px-4 rounded-md fixed bottom-4 left-3 right-4 justify-between">
@@ -49,21 +57,31 @@ const Profil = () => {
       {/* icon */}
       <div className="flex items-center">
         {/*  */}
-        <IconProfil textIcon="Mute" iconDua={MdKeyboardArrowDown} icon={FaMicrophone} />
+        <IconProfil
+          textIcon="Mute"
+          iconDua={MdKeyboardArrowDown}
+          icon={FaMicrophone}
+        />
         {/* headset */}
-        <IconProfil textIcon="Deafen" iconDua={MdKeyboardArrowDown} icon={IoHeadset} />
+        <IconProfil
+          textIcon="Deafen"
+          iconDua={MdKeyboardArrowDown}
+          icon={IoHeadset}
+        />
         {/* setting */}
-        <div className="flex items-center ">   
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="hover:bg-primary-500 rounded-lg p-2 cursor-pointer">
-                  {/* props Icons */}
-                  <IoIosSettings className="text-2xl" />
-                </div>
-              </TooltipTrigger>
+        <div className="flex items-center ">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="hover:bg-primary-500 rounded-lg p-2 cursor-pointer">
+                {/* props Icons */}
+                <IoIosSettings className="text-2xl" />
+              </div>
+            </TooltipTrigger>
 
-              <TooltipContent className="text-base bg-primary-500">Settings</TooltipContent>
-            </Tooltip>
+            <TooltipContent className="text-base bg-primary-500">
+              Settings
+            </TooltipContent>
+          </Tooltip>
         </div>
       </div>
     </div>

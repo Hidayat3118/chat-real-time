@@ -6,14 +6,11 @@ import {auth} from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 // Buat context
-export const UserContext = createContext<{
-  user: any;
-  setUser: React.Dispatch<React.SetStateAction<any>>;
-} | null>(null);
+export const UserContext = createContext<any>(null);
 
 // Buat provider
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
 
   // tangkap data dari firebase
   useEffect(() => {
