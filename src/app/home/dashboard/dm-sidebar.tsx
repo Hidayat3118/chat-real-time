@@ -21,7 +21,16 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
 export default function DMSidebar() {
+  const [activeMenu, setActiveMenu] = useState<string>("friend");
+  const menuItems = [
+    { id: "friend", label: "Friends", icon: <FaUserFriends />, href: "/home/friend" },
+    { id: "nitro", label: "Nitro", icon: <SiBlender className="text-2xl" />, href: "/home/nitro" },
+    { id: "shop", label: "Shop", icon: <AiFillShop className="text-xl" />, href: "/home/shop" },
+    { id: "guests", label: "Guests", icon: <GiLaurels />, href: "/home/guests" },
+  ];
+
   return (
     <aside className="w-[400px] bg-primary-900 text-zinc-200 flex flex-col">
       {/* Search */}
@@ -29,33 +38,23 @@ export default function DMSidebar() {
         Find or start a conversation
       </button>
 
-      {/* Menu*/}
-
+      {/* Menu */}
       <div className="px-2 space-y-1">
-        {/* friend */}
-        <Link href="/home/friend">
-          <SidebarItem active label="Friends" icon={<FaUserFriends />} />
-        </Link>
-        {/* nitro */}
-        <Link href="/home/nitro">
-          <SidebarItem
-            label="Nitro"
-            icon={<SiBlender className="text-2xl" />}
-          />
-        </Link>
-        {/* shop */}
-        <Link href="/home/shop">
-          <SidebarItem label="Shop" icon={<AiFillShop className="text-xl" />} />
-        </Link>
-        <Link href="/home/guests">
-          <SidebarItem label="Guests" icon={<GiLaurels />} />
-        </Link>
+        {menuItems.map(item => (
+          <Link href={item.href} key={item.id}>
+            <SidebarItem
+              label={item.label}
+              icon={item.icon}
+              active={activeMenu === item.id}
+              onClick={() => setActiveMenu(item.id)}
+            />
+          </Link>
+        ))}
       </div>
 
       {/* DM List */}
       <div className="mt-4 px-6 text-base text-zinc-400 flex justify-between font-semibold">
         <span className="hover:text-white cursor-pointer">Direct Message</span>
-
         <Dialog>
           <Tooltip>
             <DialogTrigger asChild>
@@ -65,7 +64,6 @@ export default function DMSidebar() {
                 </button>
               </TooltipTrigger>
             </DialogTrigger>
-
             <DialogContent className="bg-primary-700 text-white max-w-md p-0 gap-0 border border-white/10">
               {/* Header */}
               <div className="px-6 pt-6 pb-4 ">
@@ -76,7 +74,6 @@ export default function DMSidebar() {
                   You can add 9 more friends.
                 </p>
               </div>
-
               {/* Search */}
               <div className="px-6 py-2">
                 <Input
@@ -85,7 +82,6 @@ export default function DMSidebar() {
                   className="w-full rounded-md placeholder:text-base bg-primary-800 border border-white/12 px-3 py-6 text-base text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
-
               {/* Friend List */}
               <div className="px-2 h-[500px] overflow-y-auto ">
                 {[
@@ -99,20 +95,17 @@ export default function DMSidebar() {
                     <div className="flex items-center gap-3">
                       {/* Avatar */}
                       <div className="w-9 h-9 rounded-full bg-white/20" />
-
                       {/* Name */}
                       <div>
                         <p className="text-sm font-medium">{user.name}</p>
                         <p className="text-xs text-white/50">{user.username}</p>
                       </div>
                     </div>
-
                     {/* Checkbox */}
                     <Checkbox className="border border-white/40 h-5 w-5 cursor-pointer" />
                   </div>
                 ))}
               </div>
-
               {/* Footer */}
               <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-white/10 bg-[#1e1f22]">
                 <DialogClose asChild>
@@ -120,20 +113,17 @@ export default function DMSidebar() {
                     Cancel
                   </button>
                 </DialogClose>
-
                 <button className="w-full h-12 cursor-pointer text-base rounded-md bg-indigo-500 hover:bg-indigo-600  font-medium">
                   Create DM
                 </button>
               </div>
             </DialogContent>
-
             <TooltipContent className="bg-primary-600 py-2 px-3 rounded-md border border-white/5 ">
               <p className="text-sm">Create DM</p>
             </TooltipContent>
           </Tooltip>
         </Dialog>
       </div>
-
       <div className="px-2 mt-2 space-y-1">
         <DMItem name="Nakja" />
         <DMItem name="RevanRach" />

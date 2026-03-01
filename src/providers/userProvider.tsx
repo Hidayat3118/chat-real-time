@@ -15,9 +15,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   // tangkap data dari firebase
   useEffect(() => {
    
-
-    const unsubscribe = onAuthStateChanged(auth, () => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
     });
 
     return () => unsubscribe();

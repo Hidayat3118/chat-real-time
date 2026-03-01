@@ -22,11 +22,10 @@ const Profil = () => {
   //   if (user === null) {
   //     router.push("/login");
   //   }
-  // }, [user]);
+  // }, [user, router]);
 
-  // if (!user) return null;
-
-  // userProvider
+  // if (user === undefined) return null; // loading
+  // if (user === null) return null; // biar gak render dulu
 
   console.log("user tes:", user);
 
