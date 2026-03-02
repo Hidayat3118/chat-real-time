@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { FiUserPlus, FiPlus, FiGift, FiSmile } from "react-icons/fi";
 import { UserContext } from "@/providers/userProvider";
 import { db } from "@/lib/firebase";
-import ChatInput from "./component/chatInput";
+import ChatInput from "../component/chatInput";
 import {
   collection,
   addDoc,

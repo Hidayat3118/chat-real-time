@@ -18,8 +18,9 @@ import { useRouter } from "next/navigation";
 const Profil = () => {
   const { user, setUser } = useContext(UserContext);
   const router = useRouter();
+
   // useEffect(() => {
-  //   if (user === null) {
+  //   if (!user) {
   //     router.push("/login");
   //   }
   // }, [user, router]);

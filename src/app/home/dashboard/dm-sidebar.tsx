@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { AiFillShop } from "react-icons/ai";
 import SidebarItem from "@/components/ui/sidebar-item";
-import DMItem from "@/components/sidebar/dm-item";
+import ProfilIcon from "@/components/sidebar/profil-icon";
 import { GiLaurels } from "react-icons/gi";
 import { SiBlender } from "react-icons/si";
 import { FaUserFriends } from "react-icons/fa";
@@ -21,15 +21,80 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
+
+// login chat
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db, auth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { UserProvider } from "@/providers/userProvider";
+
 export default function DMSidebar() {
   const [activeMenu, setActiveMenu] = useState<string>("friend");
   const menuItems = [
-    { id: "friend", label: "Friends", icon: <FaUserFriends />, href: "/home/friend" },
-    { id: "nitro", label: "Nitro", icon: <SiBlender className="text-2xl" />, href: "/home/nitro" },
-    { id: "shop", label: "Shop", icon: <AiFillShop className="text-xl" />, href: "/home/shop" },
-    { id: "guests", label: "Guests", icon: <GiLaurels />, href: "/home/guests" },
+    {
+      id: "friend",
+      label: "Friends",
+      icon: <FaUserFriends />,
+      href: "/home/friend",
+    },
+    {
+      id: "nitro",
+      label: "Nitro",
+      icon: <SiBlender className="text-2xl" />,
+      href: "/home/nitro",
+    },
+    {
+      id: "shop",
+      label: "Shop",
+      icon: <AiFillShop className="text-xl" />,
+      href: "/home/shop",
+    },
+    {
+      id: "guests",
+      label: "Guests",
+      icon: <GiLaurels />,
+      href: "/home/guests",
+    },
   ];
+
+  // logic
+
+  const [users, setUsers] = useState<any[]>([]);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const router = useRouter();
+
+  // ambil user login
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return () => unsub();
+  }, []);
+
+  // ambil semua user
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const snapshot = await getDocs(collection(db, "users"));
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setUsers(data);
+    };
+
+    fetchUsers();
+  }, []);
+
+  // mulai chat
+  const startChat = (friendId: string) => {
+    const roomId = [currentUser.uid, friendId].sort().join("_");
+    router.push(`/testing/chat/${roomId}`);
+  };
+
+  if (!currentUser) return <div>Harus login dulu</div>;
+  console.log("current user:", currentUser);
 
   return (
     <aside className="w-[400px] bg-primary-900 text-zinc-200 flex flex-col">
@@ -40,7 +105,7 @@ export default function DMSidebar() {
 
       {/* Menu */}
       <div className="px-2 space-y-1">
-        {menuItems.map(item => (
+        {menuItems.map((item) => (
           <Link href={item.href} key={item.id}>
             <SidebarItem
               label={item.label}
@@ -125,10 +190,17 @@ export default function DMSidebar() {
         </Dialog>
       </div>
       <div className="px-2 mt-2 space-y-1">
-        <DMItem name="Nakja" />
-        <DMItem name="RevanRach" />
-        <DMItem name="eunlip" />
-        <DMItem name="Giegie" />
+        {/* profil teman */}
+
+        {users
+          .filter((user) => user.id !== currentUser.uid)
+          .map((user) => (
+            <ProfilIcon
+              key={user.id}
+              onClick={() => startChat(user.id)}
+              name={user.userName}
+            />
+          ))}
       </div>
     </aside>
   );

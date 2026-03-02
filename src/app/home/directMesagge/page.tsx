@@ -1,10 +1,10 @@
 "use client";
 
 import TopBar from "./topBar";
-import Chat from "./chat";
+// import Chat from "./chat";
 import ProfilChat from "./profilChat";
 
-export default function DirectMeassage() {
+export default function Chat() {
   return (
     <div className="bg-primary-800 text-white">
       {/* TOP BAR */}
@@ -12,7 +12,7 @@ export default function DirectMeassage() {
 
       <div className="min-h-screen flex  text-white">
         {/* ================= LEFT SIDE CHAT ================= */}
-        <Chat />
+        {/* <Chat /> */}
 
         {/* ================= RIGHT PROFILE PANEL ================= */}
         <ProfilChat />
