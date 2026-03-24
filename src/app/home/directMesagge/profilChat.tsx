@@ -1,4 +1,9 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams } from "next/navigation";
+import { db } from "@/lib/firebase";
+import { getDoc, doc } from "firebase/firestore";
+import { UserContext } from "@/providers/userProvider";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { FaUserPlus } from "react-icons/fa6";
 import {
@@ -10,13 +15,32 @@ import {
 import { IoChevronForward } from "react-icons/io5";
 
 const ProfilChat = () => {
+  const { user } = useContext(UserContext);
+  const params = useParams();
+  const roomId = params.roomId as string;
+  const [otherUserData, setOtherUserData] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    if (!user || !roomId) return;
+    const ids = roomId.split("_");
+    const otherUserId = ids.find((id) => id !== user.uid);
+    if (!otherUserId) return;
+    const fetchOtherUser = async () => {
+      const docSnap = await getDoc(doc(db, "users", otherUserId));
+      if (docSnap.exists()) setOtherUserData(docSnap.data() as UserData);
+    };
+    fetchOtherUser();
+  }, [user, roomId]);
+
+  
+
   return (
     <div className="w-[370px] bg-[#232428] border-l border-[#2b2d31] flex flex-col">
       {/* COVER */}
       <div className="h-32 bg-[#3f4fa0] relative">
         <div className="absolute -bottom-10 left-6">
           <img
-            src="https://i.pravatar.cc/100"
+            src={otherUserData?.photoURL}
             className="w-24 h-24 rounded-full border-6 border-primary-500"
           />
         </div>
@@ -51,8 +75,12 @@ const ProfilChat = () => {
       <div className="mt-14 px-6">
         <div className="flex justify-between items-start">
           <div>
-            <h2 className="text-xl font-bold">Dayat</h2>
-            <p className="text-gray-400 text-sm">dayat3118</p>
+            <h2 className="text-2xl font-bold">
+              {otherUserData?.displayName || "-"}
+            </h2>
+            <p className="text-gray-200 text-sm font-semibold">
+              {otherUserData?.userName || "-"}
+            </p>
           </div>
         </div>
 

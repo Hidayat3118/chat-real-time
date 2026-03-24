@@ -12,12 +12,21 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { UserContext } from "@/providers/userProvider";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { auth } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 const Profil = () => {
   const { user, setUser } = useContext(UserContext);
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  const [userData, setUserData] = useState<any>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // useEffect(() => {
   //   if (!user) {
@@ -30,14 +39,41 @@ const Profil = () => {
 
   console.log("user tes:", user);
 
+
+  useEffect(() => {
+  const fetchUser = async () => {
+    if (!user) return;
+
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setUserData(docSnap.data());
+      console.log("USER DATA:", docSnap.data());
+    } else {
+      console.log("User tidak ditemukan");
+    }
+  };
+
+  fetchUser();
+}, [user]); 
+
+  if (!mounted) return null;
   return (
     <div className="text-white/80 flex gap-2 items-center max-w-[370px] bg-primary-500 py-2 px-4 rounded-md fixed bottom-4 left-3 right-4 justify-between">
       {/* foto profil */}
       <div className="flex items-center gap-3 ">
         {/* avatar */}
         <div className="relative">
-          <div className=" h-10 w-10 rounded-full overflow-hidden ">
-            <Image src="/biniaing.png" width={100} height={100} alt="profil" />
+          <div className="relative h-10 w-10 rounded-full">
+            
+              <img
+                src={userData?.photoURL}
+                alt="profile"
+                
+                className="object-cover"
+              />
+           
 
             {/* status online */}
             <div className="absolute bottom-0 right-0 h-4 w-4 rounded-full bg-primary-500 flex items-center justify-center">
@@ -49,7 +85,7 @@ const Profil = () => {
         {/* user */}
         <div>
           {/* display name */}
-          <h2 className="text-sm font-bold">{user?.displayName}</h2>
+          <h2 className="text-lg font-bold">{user?.displayName}</h2>
           <p className="text-xs">Online</p>
         </div>
       </div>

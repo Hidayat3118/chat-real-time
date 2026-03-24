@@ -19,6 +19,7 @@ import { doc, setDoc } from "firebase/firestore";
 // typescript
 import { UserDoc } from "@/types/user";
 import { useRouter } from "next/navigation";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState<string>("");
@@ -29,17 +30,26 @@ export default function RegisterPage() {
   const [day, setDay] = useState<string>("");
   const [year, setYear] = useState<string>("");
   const route = useRouter();
+  // loading
+  const [loading, setLoading] = useState<boolean>(false);
 
   // function register
   const handleRegister = async (): Promise<void> => {
+    setLoading(true);
     try {
       const userCredetial = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       const user = userCredetial.user;
       await updateProfile(user, { displayName: displayName });
+
+      // variabel untuk avatar
+      const colors = ["facc15", "60a5fa", "f472b6", "34d399", "a78bfa"];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+      const avatarUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${userName}&backgroundColor=${randomColor}&radius=50`;
 
       // simpan data ke firebase
       const userData: UserDoc = {
@@ -49,6 +59,7 @@ export default function RegisterPage() {
         month,
         day,
         year,
+        photoURL: avatarUrl,
         createdAt: new Date(),
       };
       await setDoc(doc(db, "users", user.uid), userData);
@@ -222,7 +233,7 @@ export default function RegisterPage() {
           onClick={handleRegister}
           className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 w-full "
         >
-          Create Accont
+          {loading ? <Spinner /> : "Create Account"}
         </Button>
 
         {/* Footer */}

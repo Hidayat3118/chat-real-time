@@ -17,6 +17,33 @@
   animation: drop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Custom scrollbar for chat area */
+.custom-scrollbar {
+  scrollbar-width: auto; /* untuk Firefox */
+  scrollbar-color: #555 #1e1f22; /* thumb | track */
+}
+
+/* Chrome, Edge, Safari */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 14px; /* lebih lebar */
+  background: #1e1f22; /* hitam gelap */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1e1f22; /* hitam */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #555; /* abu-abu */
+  border-radius: 10px;
+  border: 3px solid #1e1f22; /* kasih efek jarak */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #777; /* abu lebih terang saat hover */
+}
+
 @theme {
   --font-bebas: "Bebas Neue", sans-serif;
   --color-primary-50: #f4f5f6;

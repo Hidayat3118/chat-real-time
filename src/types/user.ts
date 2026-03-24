@@ -6,4 +6,5 @@ export interface UserDoc {
   day: string;
   year: string;
   createdAt: Date;
+  photoURL?: string;
 }
