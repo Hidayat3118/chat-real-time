@@ -1,8 +1,9 @@
 "use client";
-import  { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import InputPassword from "@/components/ui/inputPassword";
 import LayoutAuth from "@/layout/layoutAuth";
 import Link from "next/link";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -10,6 +11,8 @@ import { auth } from "@/lib/firebase";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
 import { useRouter } from "next/navigation";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -20,14 +23,21 @@ export default function Login() {
   const handleLogin = async (): Promise<void> => {
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      await updateDoc(doc(db, "users", userCredential.user.uid), {
+        isOnline: true,
+      });
       toast.success("Berhasil Login");
       route.push("/home/friend");
     } catch (err: unknown) {
       console.log(err, "gagal login");
       toast.error("gagal Login");
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   };
   return (
@@ -52,16 +62,17 @@ export default function Login() {
                   Email <span className="text-red-500">*</span>
                 </label>
                 <Input
+                  type="email"
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               {/* password */}
-              <div className="">
+              <div>
                 <label className="block text-neutral-200 text-md font-semibold mb-2">
                   Password <span className="text-red-500">*</span>
                 </label>
-                <Input
+                <InputPassword
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -75,7 +86,7 @@ export default function Login() {
                 </a>
                 {/* button login */}
                 <Button
-                  type="submit"
+                  type="button"
                   disabled={loading}
                   onClick={handleLogin}
                   className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 "
@@ -83,7 +94,6 @@ export default function Login() {
                   {loading ? <Spinner /> : "Log In"}
                 </Button>
 
-                
                 <p className="text-gray-400 text-sm">
                   Need an account?{" "}
                   <Link

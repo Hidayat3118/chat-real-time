@@ -6,5 +6,6 @@ export interface UserDoc {
   day: string;
   year: string;
   createdAt: Date;
+  isOnline: boolean;
   photoURL?: string;
 }

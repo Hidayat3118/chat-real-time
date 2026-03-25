@@ -20,6 +20,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { UserDoc } from "@/types/user";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/ui/spinner";
+import InputPassword from "@/components/ui/inputPassword";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState<string>("");
@@ -59,6 +60,7 @@ export default function RegisterPage() {
         month,
         day,
         year,
+        isOnline: true,
         photoURL: avatarUrl,
         createdAt: new Date(),
       };
@@ -120,8 +122,7 @@ export default function RegisterPage() {
           <Label className="text-white  font-bold mb-2">
             Password <span className="text-red-500">*</span>
           </Label>
-          <Input
-            type="password"
+          <InputPassword
             onChange={(e) => setPassword(e.target.value)}
             className="w-full bg-neutral-800 text-white rounded-md px-3 py-5 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -230,6 +231,7 @@ export default function RegisterPage() {
 
         {/* Button */}
         <Button
+          disabled={loading}
           onClick={handleRegister}
           className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer my-3 w-full "
         >

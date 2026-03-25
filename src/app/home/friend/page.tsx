@@ -31,7 +31,7 @@ export default function Friend() {
           </div>
 
           {/* Add Friend */}
-          <button className="ml-2 px-4 py-2 rounded-md bg-[#5865f2] text-white text-sm font-medium">
+          <button className="ml-2 px-4 py-2 rounded-md bg-indigo-700/30 text-indigo-400 text-sm font-medium">
             Add Friend
           </button>
         </div>
@@ -112,7 +112,6 @@ export default function Friend() {
           </div>
         </div>
       </div>
-
 
       {/* Right sidebar */}
       <RightSidebar />
